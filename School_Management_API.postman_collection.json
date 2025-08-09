@@ -1,0 +1,358 @@
+{
+  "info": {
+    "name": "School Management API",
+    "description": "API collection for managing school data with proximity-based sorting",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "school-management-api-v1",
+    "version": {
+      "major": 1,
+      "minor": 0,
+      "patch": 0
+    }
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the API server is running"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"School Management API is running\",\n  \"timestamp\": \"2024-01-01T12:00:00.000Z\",\n  \"version\": \"1.0.0\"\n}"
+        }
+      ]
+    },
+    {
+      "name": "Add School",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Central High School\",\n  \"address\": \"123 Main Street, New York, NY 10001\",\n  \"latitude\": 40.7128,\n  \"longitude\": -74.0060\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/addSchool",
+          "host": ["{{base_url}}"],
+          "path": ["addSchool"]
+        },
+        "description": "Add a new school to the database with name, address, latitude, and longitude"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Central High School\",\n  \"address\": \"123 Main Street, New York, NY 10001\",\n  \"latitude\": 40.7128,\n  \"longitude\": -74.0060\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/addSchool",
+              "host": ["{{base_url}}"],
+              "path": ["addSchool"]
+            }
+          },
+          "status": "Created",
+          "code": 201,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"School added successfully\",\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Central High School\",\n    \"address\": \"123 Main Street, New York, NY 10001\",\n    \"latitude\": 40.7128,\n    \"longitude\": -74.0060,\n    \"createdAt\": \"2024-01-01T12:00:00.000Z\"\n  }\n}"
+        },
+        {
+          "name": "Validation Error",
+          "originalRequest": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"\",\n  \"address\": \"123 Main Street\",\n  \"latitude\": 91,\n  \"longitude\": -74.0060\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/addSchool",
+              "host": ["{{base_url}}"],
+              "path": ["addSchool"]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Validation error\",\n  \"errors\": [\n    \"School name cannot be empty\",\n    \"Latitude must be between -90 and 90\"\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "Add School - Example 2",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Lincoln Elementary School\",\n  \"address\": \"456 Oak Avenue, Brooklyn, NY 11201\",\n  \"latitude\": 40.6892,\n  \"longitude\": -73.9442\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/addSchool",
+          "host": ["{{base_url}}"],
+          "path": ["addSchool"]
+        },
+        "description": "Add another school for testing proximity sorting"
+      }
+    },
+    {
+      "name": "Add School - Example 3",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Roosevelt Middle School\",\n  \"address\": \"789 Pine Street, Queens, NY 11375\",\n  \"latitude\": 40.7282,\n  \"longitude\": -73.7949\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/addSchool",
+          "host": ["{{base_url}}"],
+          "path": ["addSchool"]
+        },
+        "description": "Add a third school for comprehensive testing"
+      }
+    },
+    {
+      "name": "List Schools by Proximity",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/listSchools?latitude={{user_latitude}}&longitude={{user_longitude}}",
+          "host": ["{{base_url}}"],
+          "path": ["listSchools"],
+          "query": [
+            {
+              "key": "latitude",
+              "value": "{{user_latitude}}",
+              "description": "User's current latitude"
+            },
+            {
+              "key": "longitude",
+              "value": "{{user_longitude}}",
+              "description": "User's current longitude"
+            }
+          ]
+        },
+        "description": "Get all schools sorted by distance from user's location"
+      },
+      "response": [
+        {
+          "name": "Success Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/listSchools?latitude=40.7589&longitude=-73.9851",
+              "host": ["{{base_url}}"],
+              "path": ["listSchools"],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "40.7589"
+                },
+                {
+                  "key": "longitude",
+                  "value": "-73.9851"
+                }
+              ]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Schools retrieved successfully\",\n  \"data\": [\n    {\n      \"id\": 2,\n      \"name\": \"Lincoln Elementary School\",\n      \"address\": \"456 Oak Avenue, Brooklyn, NY 11201\",\n      \"latitude\": 40.6892,\n      \"longitude\": -73.9442,\n      \"distance\": 7.85,\n      \"createdAt\": \"2024-01-01T12:05:00.000Z\"\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Central High School\",\n      \"address\": \"123 Main Street, New York, NY 10001\",\n      \"latitude\": 40.7128,\n      \"longitude\": -74.0060,\n      \"distance\": 8.12,\n      \"createdAt\": \"2024-01-01T12:00:00.000Z\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Roosevelt Middle School\",\n      \"address\": \"789 Pine Street, Queens, NY 11375\",\n      \"latitude\": 40.7282,\n      \"longitude\": -73.7949,\n      \"distance\": 15.23,\n      \"createdAt\": \"2024-01-01T12:10:00.000Z\"\n    }\n  ],\n  \"userLocation\": {\n    \"latitude\": 40.7589,\n    \"longitude\": -73.9851\n  },\n  \"totalSchools\": 3\n}"
+        },
+        {
+          "name": "Validation Error",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/listSchools?latitude=invalid&longitude=-73.9851",
+              "host": ["{{base_url}}"],
+              "path": ["listSchools"],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "invalid"
+                },
+                {
+                  "key": "longitude",
+                  "value": "-73.9851"
+                }
+              ]
+            }
+          },
+          "status": "Bad Request",
+          "code": 400,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": false,\n  \"message\": \"Validation error\",\n  \"errors\": [\n    \"User latitude must be a number\"\n  ]\n}"
+        }
+      ]
+    },
+    {
+      "name": "List Schools - Times Square Location",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/listSchools?latitude=40.7589&longitude=-73.9851",
+          "host": ["{{base_url}}"],
+          "path": ["listSchools"],
+          "query": [
+            {
+              "key": "latitude",
+              "value": "40.7589",
+              "description": "Times Square latitude"
+            },
+            {
+              "key": "longitude",
+              "value": "-73.9851",
+              "description": "Times Square longitude"
+            }
+          ]
+        },
+        "description": "Get schools sorted by distance from Times Square, NYC"
+      }
+    },
+    {
+      "name": "API Documentation",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        },
+        "description": "Get API documentation and available endpoints"
+      },
+      "response": [
+        {
+          "name": "Documentation Response",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": ["{{base_url}}"],
+              "path": [""]
+            }
+          },
+          "status": "OK",
+          "code": 200,
+          "_postman_previewlanguage": "json",
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "cookie": [],
+          "body": "{\n  \"success\": true,\n  \"message\": \"Welcome to School Management API\",\n  \"version\": \"1.0.0\",\n  \"endpoints\": {\n    \"health\": \"GET /health\",\n    \"addSchool\": \"POST /addSchool\",\n    \"listSchools\": \"GET /listSchools?latitude={lat}&longitude={lon}\"\n  }\n}"
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000",
+      "description": "Base URL for the School Management API"
+    },
+    {
+      "key": "user_latitude",
+      "value": "40.7589",
+      "description": "User's current latitude (Times Square, NYC by default)"
+    },
+    {
+      "key": "user_longitude",
+      "value": "-73.9851",
+      "description": "User's current longitude (Times Square, NYC by default)"
+    }
+  ]
+}
